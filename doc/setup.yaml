@@ -1,0 +1,42 @@
+import:
+    - $sdk\gui.yaml
+
+product:
+    name: My Product
+    manufacturer: My company
+    version: 1.0
+    main: $src\app.exe
+
+files:
+    bundle:
+        dir: $src
+        include: [*.exe, *.dll, *.pdb, *.config]
+        exclude: [*.vshost.*]
+    - app.chm: $src\doc\doc.chm
+    @programs:
+        shortcut: { name: @name, target: @main }
+        shortcut: { name: Справка, target: @dst\app.chm }
+        shortcut:
+            name: Remove @name
+            target: @system\msiexec.exe
+            arguments: /x @main
+    @desktop:
+        shortcut: { name: @name, target: @main }
+
+actions:
+    gui:
+        install_finish_dlg.init: |
+            dlg.add("<button id='launch' type='checkbox' value='Launch application' top = 10 left = 20 />")
+    
+        begin_uninstall_dlg.init: |
+            dlg.add("<button id='remove_data' type='checkbox' value='Remove all application data' top = 10 left = 20 />")
+
+    after_install: |
+        if @launch then
+            os.execute("@main")
+        end
+
+    after_uninstall: |
+        if @remove_data then
+            os.remove("@app_data\@name")
+        end
