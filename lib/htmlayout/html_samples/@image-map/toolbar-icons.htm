@@ -1,0 +1,156 @@
+<html>
+  <head>
+    <title></title>
+    <style>
+      @image-map tb-icon 
+      {
+        src:url(rttb.png);
+        cells:15 2; /* 15 columns, 2 rows */
+        /* logical names of the parts, see toolbar-icons.png */ 
+        items:  ulist,
+                olist,
+                unindent,
+                indent,
+                picture,
+                table,
+                link,
+                align-left,
+                align-center,
+                align-right,
+                align-justify,
+                align,
+                fullscreen,
+                unfullscreen,
+                props,
+                
+                bold,
+                italic,
+                underline,
+                strikethrough,
+                font-family,
+                font-size,
+                text-color,
+                text-back-color,
+                source;
+      }
+    
+      toolbar { 
+        display:block;
+        display-model:block-inside; 
+        flow:horizontal; border-spacing:2px; 
+        padding:0;
+        border-left: 1px solid #F4F4F4;
+        border-bottom: 1px solid #BBB;
+        background-color: #F1F1F1 #F1F1F1 #DADADA #DADADA;
+      }
+      toolbar > widget.button { 
+        behavior:clickable;
+        size:21px; 
+        padding:0;
+        foreground:no-repeat 50% 50%; padding:3px; 
+        foreground-repeat:no-repeat;
+        background-image:none; 
+        background-repeat:stretch; 
+        hit-margin: 2px;
+        margin: 2px;
+        transition:none;
+      }
+      
+      toolbar > widget.button:rtl {
+        mapping: left-to-right(margin,foreground-image); 
+      }
+      
+      toolbar > widget.button:hover { 
+        background-image:url(theme:toolbar-button-hover); 
+        foreground-image-transformation: colorize(#70F);
+      }
+      toolbar > widget.button:active { 
+        background-image:url(theme:toolbar-button-pressed); 
+        foreground-position:57% 57%; 
+      }
+      toolbar > widget.button:disabled { 
+        background-image:none; 
+        opacity:0.5;
+      }
+      toolbar > splitter {
+        width:0;
+        height:*;
+        border-left: 1px solid #BBB;
+        border-right: 1px solid #F4F4F4;
+      }
+      
+      toolbar > widget.button.bold { foreground-image:image-map(tb-icon,bold); } 
+      toolbar > widget.button.italic { foreground-image:image-map(tb-icon,italic); } 
+      toolbar > widget.button.underline { foreground-image:image-map(tb-icon,underline); } 
+      toolbar > widget.button.strikethrough { foreground-image:image-map(tb-icon,strikethrough); } 
+     
+      toolbar > widget.button.font-family { foreground-image:image-map(tb-icon,font-family); } 
+      toolbar > widget.button.font-size { foreground-image:image-map(tb-icon,font-size); } 
+      toolbar > widget.button.text-color { foreground-image:image-map(tb-icon,text-color); }       
+      toolbar > widget.button.text-back-color { foreground-image:image-map(tb-icon,text-back-color); } 
+      
+      toolbar > widget.button.ulist { foreground-image:image-map(tb-icon,ulist); } 
+      toolbar > widget.button.olist { foreground-image:image-map(tb-icon,olist); } 
+      toolbar > widget.button.unindent { foreground-image:image-map(tb-icon,unindent); } 
+      toolbar > widget.button.indent { foreground-image:image-map(tb-icon,indent); } 
+      toolbar > widget.button.align { foreground-image:image-map(tb-icon,align); } 
+      
+      toolbar > widget.button.picture { foreground-image:image-map(tb-icon,picture); } 
+      toolbar > widget.button.table { foreground-image:image-map(tb-icon,table); } 
+      toolbar > widget.button.link { foreground-image:image-map(tb-icon,link); } 
+      
+      toolbar > widget.button.fullscreen { foreground-image:image-map(tb-icon,fullscreen); margin-left:*; } 
+      toolbar > widget.button.fullscreen:checked { foreground-image:image-map(tb-icon,unfullscreen); } 
+      
+      .editor { size:*; border: 1px solid #BBB; }
+      .editor > richtext { size:*; background:window; padding:0 }
+    
+    </style>
+    <script type="text/tiscript">
+    
+      $(#dirswitch).onValueChanged = :: $(div.editor).attributes["dir"] = this.value.dir;
+    
+    </script>
+  </head>
+<body>
+  <p>Demo of @image-map usage. Single rttb.png image is used as a source of different images (toolbar buttons here).</p>
+  <form #dirswitch>
+    Change UI directionality:
+    <button type=radio value=ltr name="dir">LTR</button>
+    <button type=radio value=rtl name="dir">RTL</button>
+  </form>
+  <div .editor>
+  <toolbar>
+    <widget .button .bold />
+    <widget .button .italic />
+    <widget .button .underline />
+    <widget .button .strikethrough />
+    <splitter/>
+    <widget .button .font-family />
+    <widget .button .font-size />
+    <widget .button .text-color />
+    <widget .button .text-back-color />
+    <splitter/>
+    <widget .button .ulist />
+    <widget .button .olist />
+    <widget .button .unindent />
+    <widget .button .indent />
+    <splitter/>
+    <widget .button .align />
+    <splitter/>
+    <widget .button .picture />
+    <widget .button .table />
+    <widget .button .link />
+    
+    <widget .button .fullscreen />
+  </toolbar>
+  <div>
+    Note that while in RTL mode icons are also mirrored due to this declaration:
+    <pre dir=ltr>toolbar > button:rtl {
+  mapping: left-to-right(margin,foreground-image); 
+}</pre>
+  In reality not all icons shall be mirrored that way.
+  </div>
+  </div>
+</body>
+</html>
