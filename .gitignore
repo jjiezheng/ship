@@ -1,6 +1,8 @@
-bin
-obj
-stage
+/bin
+/obj
+/stage
 *.user
 *.sdf
 *.suo
+*.opensdf
+ipch
