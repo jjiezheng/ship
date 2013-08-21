@@ -3,9 +3,58 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="package\package_item.h">
+      <Filter>package</Filter>
+    </ClInclude>
+    <ClInclude Include="package\file_item.h">
+      <Filter>package</Filter>
+    </ClInclude>
+    <ClInclude Include="package\package.h">
+      <Filter>package</Filter>
+    </ClInclude>
+    <ClInclude Include="environment.h" />
+    <ClInclude Include="builder.h" />
+    <ClInclude Include="package\product_info.h">
+      <Filter>package</Filter>
+    </ClInclude>
+    <ClInclude Include="config_data.h" />
+    <ClInclude Include="package\data_stream.h">
+      <Filter>package</Filter>
+    </ClInclude>
+    <ClInclude Include="var_table.h" />
+    <ClInclude Include="package\file_stream.h">
+      <Filter>package</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="package\package_item.cpp">
+      <Filter>package</Filter>
+    </ClCompile>
+    <ClCompile Include="package\file_item.cpp">
+      <Filter>package</Filter>
+    </ClCompile>
+    <ClCompile Include="package\package.cpp">
+      <Filter>package</Filter>
+    </ClCompile>
+    <ClCompile Include="environment.cpp" />
+    <ClCompile Include="builder.cpp" />
+    <ClCompile Include="package\product_info.cpp">
+      <Filter>package</Filter>
+    </ClCompile>
+    <ClCompile Include="config_data.cpp" />
+    <ClCompile Include="package\data_stream.cpp">
+      <Filter>package</Filter>
+    </ClCompile>
+    <ClCompile Include="var_table.cpp" />
+    <ClCompile Include="package\file_stream.cpp">
+      <Filter>package</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="package">
+      <UniqueIdentifier>{55b453ba-af33-402c-ba2c-6a945b80255e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

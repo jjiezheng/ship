@@ -137,11 +137,11 @@ namespace YAML
 		// . In the block context - ? : must be not be followed with a space.
 		// . In the flow context ? is illegal and : and - must not be followed with a space.
 		inline const RegEx& PlainScalar() {
-			static const RegEx e = !(BlankOrBreak() || RegEx(",[]{}#&*!|>\'\"%@`", REGEX_OR) || (RegEx("-?:", REGEX_OR) + (BlankOrBreak() || RegEx())));
+			static const RegEx e = !(BlankOrBreak() || RegEx(",[]{}#&!|>\'\"%`", REGEX_OR) || (RegEx("-?:", REGEX_OR) + (BlankOrBreak() || RegEx())));
 			return e;
 		}
 		inline const RegEx& PlainScalarInFlow() {
-			static const RegEx e = !(BlankOrBreak() || RegEx("?,[]{}#&*!|>\'\"%@`", REGEX_OR) || (RegEx("-:", REGEX_OR) + Blank()));
+			static const RegEx e = !(BlankOrBreak() || RegEx("?,[]{}#&!|>\'\"%`", REGEX_OR) || (RegEx("-:", REGEX_OR) + Blank()));
 			return e;
 		}
 		inline const RegEx& EndScalar() {
@@ -183,8 +183,8 @@ namespace YAML
 		const char FlowMapStart = '{';
 		const char FlowMapEnd = '}';
 		const char FlowEntry = ',';
-		const char Alias = '*';
-		const char Anchor = '&';
+		const char Alias = '\001';
+		const char Anchor = '\002';
 		const char Tag = '!';
 		const char LiteralScalar = '|';
 		const char FoldedScalar = '>';

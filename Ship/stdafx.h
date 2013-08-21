@@ -1,15 +1,22 @@
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently, but
-// are changed infrequently
-//
-
 #pragma once
 
 #include "targetver.h"
 
 #include <stdio.h>
 #include <tchar.h>
+#include <shlobj.h>
 
+#include <vector>
+#include <string>
+#include <memory>
+#include <iostream>
+#include <map>
+#include <boost/unordered_map.hpp>
 
+#include <yaml-cpp/yaml.h>
 
-// TODO: reference additional headers your program requires here
+namespace ship
+{
+    using namespace std;
+    using boost::unordered_map;
+}

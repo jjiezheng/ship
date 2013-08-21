@@ -12,16 +12,23 @@ files:
         dir: $src
         include: [*.exe, *.dll, *.pdb, *.config]
         exclude: [*.vshost.*]
-    - app.chm: $src\doc\doc.chm
+    bundle:
+        - app.chm: $src\doc\doc.chm
     @programs:
-        shortcut: { name: @name, target: @main }
-        shortcut: { name: Справка, target: @dst\app.chm }
+        shortcut:
+            name: @name
+            target: @main
+        shortcut: 
+            name: Help
+            target: @dst\app.chm
         shortcut:
             name: Remove @name
             target: @system\msiexec.exe
             arguments: /x @main
     @desktop:
-        shortcut: { name: @name, target: @main }
+        shortcut:
+            name: @name
+            target: @main
 
 actions:
     gui:
