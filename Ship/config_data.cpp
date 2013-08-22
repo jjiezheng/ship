@@ -5,13 +5,13 @@ namespace ship
 {
     namespace 
     {
-        inline string IsAlphaNumeric(char c)
+        inline bool IsAlphaNumeric(char c)
         {
             return (c >= 'A' && c <= 'Z') || 
                    (c >= 'a' && c <= 'z') || 
                    (c >= '0' && c <= '9') ||
-                   c == "_" || 
-                   c == "~";
+                   c == '_' || 
+                   c == '~';
         }
 
         string GetVarName(const string& s, int start)
@@ -25,10 +25,10 @@ namespace ship
                 }
             }
 
-            int len = i - 1 - start;
+            int len = i - 1;
             if (len > 0)
             {
-                return string(s.c_str(), len);
+                return string(s.c_str() + start, len);
             }
             else
             {
@@ -125,10 +125,14 @@ namespace ship
                 res.append(value.c_str() + name_end, value.c_str() + name_start);
                 ++name_start;
                 string name = GetVarName(value, name_start);
-                res.append(name);
+                string value = get(name);
+                res.append(value);
 
                 name_end = name_start + name.length();
             }
         }
+
+        res.append(value.begin() + name_end, value.end());
+        return res;
     }
 }

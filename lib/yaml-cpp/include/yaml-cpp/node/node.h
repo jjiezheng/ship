@@ -7,6 +7,7 @@
 
 
 #include "yaml-cpp/dll.h"
+#include "yaml-cpp/mark.h"
 #include "yaml-cpp/node/ptr.h"
 #include "yaml-cpp/node/type.h"
 #include "yaml-cpp/node/detail/iterator_fwd.h"
@@ -67,6 +68,8 @@ namespace YAML
 		
 		const_iterator end() const;
 		iterator end();
+
+        Mark mark() const;
 		
 		// sequence
 		template<typename T> void push_back(const T& rhs);

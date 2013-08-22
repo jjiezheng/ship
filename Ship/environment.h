@@ -11,7 +11,7 @@ namespace ship
         virtual ~Environment();
         
         void Reset();
-        string Expand(const string& value);
+        string Expand(const string& value) const;
         using ConfigData::set;
     protected:
         void set(const string& key, int csidl);

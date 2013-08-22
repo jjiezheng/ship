@@ -7,7 +7,6 @@ namespace ship
 {
     FileStream::FileStream(const string& path)
     {
-        data = make_shared<FileStream>(path);
     }
 
     FileStream::~FileStream()

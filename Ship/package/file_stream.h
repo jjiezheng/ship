@@ -18,5 +18,5 @@ namespace ship
     
     private:
         string path_;
-    }
+    };
 }

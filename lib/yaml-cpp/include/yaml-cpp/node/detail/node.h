@@ -7,6 +7,7 @@
 
 
 #include "yaml-cpp/dll.h"
+#include "yaml-cpp/mark.h"
 #include "yaml-cpp/node/type.h"
 #include "yaml-cpp/node/ptr.h"
 #include "yaml-cpp/node/detail/node_ref.h"
@@ -31,6 +32,9 @@ namespace YAML
 			const std::string& scalar() const { return m_pRef->scalar(); }
 			const std::string& tag() const { return m_pRef->tag(); }
 			
+            const Mark& mark() const { return m_mark; }
+            void set_mark(const Mark& mark) { m_mark = mark; }
+
 			void mark_defined() {
 				if(is_defined())
 					return;
@@ -120,6 +124,7 @@ namespace YAML
             void force_insert(const Key& key, const Value& value, shared_memory_holder pMemory){ m_pRef->force_insert(key, value, pMemory); }
 
 		private:
+            Mark m_mark;
 			shared_node_ref m_pRef;
 			typedef std::set<node *> nodes;
 			nodes m_dependencies;

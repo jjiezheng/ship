@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "file_item.h"
 
+#include "file_stream.h"
+
 namespace ship
 {
     FileItem::FileItem()
@@ -9,7 +11,8 @@ namespace ship
 
     FileItem::FileItem(const string& path)
     {
-        data = 
+        data = make_shared<FileStream>(path);
+        name = ExtractFileName(path);
     }
 
     FileItem::~FileItem()

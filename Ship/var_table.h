@@ -10,5 +10,8 @@ namespace ship
         virtual ~VarTable();
 
         string Expand(const string& value) const;
+        string Expand(const YAML::Node& node) const;
     };
+
+    typedef shared_ptr<VarTable> VarTablePtr;
 }

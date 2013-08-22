@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="package\package_item.h">
       <Filter>package</Filter>
     </ClInclude>
@@ -25,6 +24,8 @@
     <ClInclude Include="package\file_stream.h">
       <Filter>package</Filter>
     </ClInclude>
+    <ClInclude Include="file_bundle.h" />
+    <ClInclude Include="logs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ship.cpp" />
@@ -51,6 +52,8 @@
     <ClCompile Include="package\file_stream.cpp">
       <Filter>package</Filter>
     </ClCompile>
+    <ClCompile Include="file_bundle.cpp" />
+    <ClCompile Include="logs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="package">

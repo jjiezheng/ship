@@ -1,58 +1,53 @@
 #include "stdafx.h"
 #include "builder.h"
 
-#include "package/file_item.h"
+#include "file_bundle.h"
 
 namespace ship
 {
-    class FileBundle
+    Builder::Builder(const VarTablePtr& vars)
+        : vars_(vars)
     {
-    public:
-        FileBundle(const string& install_location, const YAML::Node& config, const VarTable& vars)
-        {
-            switch(config.Tag())
-            {
-            case YAML::NodeType::Scalar:
-                {
-                    string path = config.as<string>();
-                    auto file = make_shared<FileItem>(path);
-                    file->install_location = install_location;
-                    files.push_back(file);
-                }
-                break;
-            case YAML::NodeType::Sequence:
-                {
-                    for (auto i = config.begin(); i != config.end(); ++i)
-                    {
-                    }
-                }
-                break;
-            case YAML::NodeType::Map:
-                {
-                }
-                break;
-            }
-        }
+    }
 
-        vector<FileItemPtr> files;
-    };
-
-    PackagePtr Builder::Build(const YAML::Node& config, const VarTable& vars)
+    PackagePtr Builder::Build(const YAML::Node& config)
     {
         auto package = make_shared<Package>();
         package->product.Add(config["product"]);
         
-        auto filesNode = config["files"];
-        for (auto i = filesNode.begin(); i != filesNode.end(); ++i)
+        auto data_node = config["data"];
+        ImportData(data_node);
+        return package;
+    }
+
+    void Builder::ImportData(const YAML::Node& node, const string& install_location /* = "" */)
+    {
+        for (auto i = node.begin(); i != node.end(); ++i)
         {
             string key = i->first.as<string>();
             if (key == "bundle")
             {
-
+                string custom_location = install_location;
+                if (custom_location.empty())
+                {
+                    custom_location = "@app";
+                }
+                FileBundle bundle(custom_location, vars_);
+                bundle.Import(i->second);
+                for (auto i = bundle.files.begin(); i != bundle.files.end(); ++i)
+                {
+                    FileItemPtr file = *i;
+                    cout << "    " << file->name << endl;
+                }
             }
-            const YAML::Node& value = i->second;
-
+            else
+            {
+                string custom_location = key;
+                if (!install_location.empty())
+                {
+                    custom_location = CombinePath(install_location, custom_location);
+                }
+            }
         }
-        return package;
     }
 }

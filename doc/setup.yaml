@@ -7,13 +7,15 @@ product:
     version: 1.0
     main: $src\app.exe
 
-files:
+data:
     bundle:
         dir: $src
-        include: [*.exe, *.dll, *.pdb, *.config]
-        exclude: [*.vshost.*]
+        include: [*.exe, *.dll, *.pdb, *.config, *.py]
+        exclude: [*.vshost.*, *_test.py]
     bundle:
+        - $src\doc\doc.chm
         - app.chm: $src\doc\doc.chm
+        - app2.chm: $src\doc\doc.chm
     @programs:
         shortcut:
             name: @name
@@ -34,7 +36,7 @@ actions:
     gui:
         install_finish_dlg.init: |
             dlg.add("<button id='launch' type='checkbox' value='Launch application' top = 10 left = 20 />")
-    
+
         begin_uninstall_dlg.init: |
             dlg.add("<button id='remove_data' type='checkbox' value='Remove all application data' top = 10 left = 20 />")
 

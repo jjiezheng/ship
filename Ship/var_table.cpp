@@ -11,4 +11,9 @@ namespace ship
     {
         return ExpandKey('$', value);
     }
+
+    string VarTable::Expand(const YAML::Node& node) const
+    {
+        return Expand(node.as<string>());
+    }
 }

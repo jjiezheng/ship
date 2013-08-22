@@ -22,8 +22,8 @@ namespace ship
         {
             const int buf_size = MAX_PATH + 1;
             char buf[buf_size];
-            GetTempPath(buf_size, buf);
-            return string(buf);
+            int len = GetTempPath(buf_size, buf);
+            return string(buf, len - 1);
         }
     }
 
@@ -51,7 +51,7 @@ namespace ship
 
     string Environment::Expand(const string& value) const
     {
-        ExpandKey('@', value);        
+        return ExpandKey('@', value);        
     }
 
     void Environment::set(const string& key, int csidl)

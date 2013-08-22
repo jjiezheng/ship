@@ -74,6 +74,11 @@ namespace YAML
             throw InvalidNode();
 		return m_pNode ? m_pNode->type() : NodeType::Null;
 	}
+
+    inline Mark Node::mark() const
+    {
+        return m_pNode ? m_pNode->mark() : Mark();
+    }
 	
 	// access
     

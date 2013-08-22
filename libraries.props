@@ -8,7 +8,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\stage\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\lib\htmlayout\include;$(SolutionDir)\lib\log4cplus\include;$(SolutionDir)\lib\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\lib\htmlayout\include;$(SolutionDir)\lib\log4cplus\include;$(SolutionDir)\lib\yaml-cpp\include;$(SolutionDir)\lib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

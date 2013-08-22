@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="debug\trace.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="threading.h" />
+    <ClInclude Include="all.h" />
+    <ClInclude Include="debug.h" />
+    <ClInclude Include="pointers.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="threading\task.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\thread_pool.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\atomic.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\event.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\primitives.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="timer.h" />
+    <ClInclude Include="strutil.h" />
+    <ClInclude Include="exception.h" />
+    <ClInclude Include="debug\backtrace.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="debug\exception_formatter.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="debug\exception_traps.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="debug\stack_walker.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="system\process.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="system\path.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="regex.h" />
+    <ClInclude Include="generic_exceptions.h" />
+    <ClInclude Include="system.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="factory.h" />
+    <ClInclude Include="system\info.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="logs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="debug\trace.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="threading\thread_pool.cpp">
+      <Filter>threading</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.cpp" />
+    <ClCompile Include="strutil.cpp" />
+    <ClCompile Include="exception.cpp" />
+    <ClCompile Include="debug\exception_formatter.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\exception_traps.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\stack_walker.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\backtrace.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="system\process.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="system\path.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="generic_exceptions.cpp" />
+    <ClCompile Include="config.cpp" />
+    <ClCompile Include="system\info.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="logs.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="debug">
+      <UniqueIdentifier>{acb95c0b-a297-419d-a58e-766a7434d796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="threading">
+      <UniqueIdentifier>{6648ca57-0c6b-4805-bae8-6a20e2af40ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system">
+      <UniqueIdentifier>{280b3f05-f79f-4e27-b055-c2f019da1c25}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

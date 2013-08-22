@@ -20,4 +20,6 @@ namespace ship
 
         DataStreamPtr data;
     };
+
+    typedef shared_ptr<FileItem> FileItemPtr;
 }
