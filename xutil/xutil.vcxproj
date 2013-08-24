@@ -155,6 +155,7 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="debug\backtrace.h" />
+    <ClInclude Include="debug\untyped_exception.h" />
     <ClInclude Include="debug\exception_formatter.h" />
     <ClInclude Include="debug\exception_traps.h" />
     <ClInclude Include="debug\stack_walker.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="debug\exception_traps.cpp" />
     <ClCompile Include="debug\stack_walker.cpp" />
     <ClCompile Include="debug\trace.cpp" />
+    <ClCompile Include="debug\untyped_exception.cpp" />
     <ClCompile Include="exception.cpp" />
     <ClCompile Include="generic_exceptions.cpp" />
     <ClCompile Include="logs.cpp" />

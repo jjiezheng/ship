@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "exception_traps.h"
+#include "untyped_exception.h"
 #include "../system/process.h"
 #include "../threading.h"
 
@@ -9,10 +10,23 @@
 
 namespace xutil
 {
-     bool xtrap_retrhrow_exceptions;
+    bool xtrap_retrhrow_exceptions;
 
     namespace
     {
+        thread_specific_ptr<EXCEPTION_POINTERS> g__stack_trace_pointers_;
+
+        LONG CALLBACK StackTraceVectoredHandler(PEXCEPTION_POINTERS ex_info)
+        {
+            PEXCEPTION_POINTERS saved_info = g__stack_trace_pointers_.get();
+            if (!saved_info)
+            {
+                saved_info = new EXCEPTION_POINTERS();
+            }
+            *saved_info = *ex_info;
+            return EXCEPTION_CONTINUE_SEARCH;
+        }
+
         static FatalErrorHandler xtrap_fatal_error_handler;
 
 #ifdef WIN32
@@ -121,6 +135,34 @@ namespace xutil
         {
             return "no exception information";
         }
+    }
+
+    void RegisterExceptionStackTraceTrap()
+    {
+        AddVectoredExceptionHandler(TRUE, StackTraceVectoredHandler);
+    }
+
+    PEXCEPTION_POINTERS GetExceptionStackTracePointers()
+    {
+        return g__stack_trace_pointers_.get();
+    }
+
+    PEXCEPTION_POINTERS GetExceptionStackTracePointers(void* exception_object)
+    {
+        PEXCEPTION_POINTERS ex_info = GetExceptionStackTracePointers();
+        if (!ex_info)
+        {
+            return NULL;
+        }
+
+        const EXCEPTION_RECORD& er = *ex_info->ExceptionRecord;
+        if (er.ExceptionCode != EXCEPTION_USER)
+        {
+            return NULL;
+        }
+
+        UntypedException untyped(er);
+        return NULL;
     }
 
     //void LogSEH_Info(Logger& logger, const char* message, const char* tag)

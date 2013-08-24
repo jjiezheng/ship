@@ -9,6 +9,7 @@
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\lib\htmlayout\include;$(SolutionDir)\lib\log4cplus\include;$(SolutionDir)\lib\yaml-cpp\include;$(SolutionDir)\lib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

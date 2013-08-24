@@ -55,6 +55,9 @@
       <Filter>system</Filter>
     </ClInclude>
     <ClInclude Include="logs.h" />
+    <ClInclude Include="debug\untyped_exception.h">
+      <Filter>debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -91,6 +94,9 @@
       <Filter>system</Filter>
     </ClCompile>
     <ClCompile Include="logs.cpp" />
+    <ClCompile Include="debug\untyped_exception.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="debug">

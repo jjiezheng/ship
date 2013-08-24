@@ -74,6 +74,16 @@ namespace xutil
     typedef void (*FatalErrorHandler)(void);
     void RegisterExceptionTraps(FatalErrorHandler error_handler);
 
+    void RegisterExceptionStackTraceTrap();
+    PEXCEPTION_POINTERS GetExceptionStackTracePointers();
+    PEXCEPTION_POINTERS GetExceptionStackTracePointers(const type_info& exception_type);
+
+    template <typename T>
+    PEXCEPTION_POINTERS GetExceptionStackTracePointers(const T& exception_object)
+    {
+        
+    }
+
 #ifdef WIN32
     LONG WINAPI SEH_Handler(EXCEPTION_POINTERS* pExp, DWORD dwExpCode);
     string GetSEH_Info();

@@ -19,10 +19,16 @@
     <ClInclude Include="stub.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="path.h" />
+    <ClInclude Include="process.h" />
+    <ClInclude Include="package_info.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stub.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="path.cpp" />
+    <ClCompile Include="process.cpp" />
+    <ClCompile Include="package_info.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="stub.rc">

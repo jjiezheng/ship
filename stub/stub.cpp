@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "stub.h"
 
-#define ZLIB_WINAPI
 #include "zlib/zlib.h"
-#include <stdio.h>
+#include "path.h"
 
 #define CHUNK 16384
 
@@ -56,5 +55,6 @@ int def(FILE *source, FILE *dest, int level)
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
-    return def(0, 0, 0);
+    string dir_name = CreateTempDirectory("install.");
+    return 0;
 }
