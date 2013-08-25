@@ -92,7 +92,7 @@ namespace xutil
         }
         else
         {
-            XTHROW(Exception());
+            THROW(Exception());
         }
     }
 
@@ -123,7 +123,7 @@ namespace xutil
         }
         else
         {
-            XTHROW(Exception());
+            THROW(Exception());
         }
     }
 

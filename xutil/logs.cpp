@@ -26,7 +26,7 @@ namespace xutil
             const ConfigProperties* props = config.get_child("logs");
             if (!props)
             {
-                XTHROW_EXCEPTION("Cannot find logs config section");
+                THROW_EXCEPTION("Cannot find logs config section");
             }
 
             stringstream stream;

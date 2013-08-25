@@ -6,17 +6,17 @@
 #include "debug/backtrace.h"
 #include "debug/exception_traps.h"
 
-#define XTHROW BOOST_THROW_EXCEPTION
-#define XTHROW_EXCEPTION(x) XTHROW(xutil::Exception(x))
+#define THROW BOOST_THROW_EXCEPTION
+#define THROW_EXCEPTION(x) THROW(xutil::Exception(x))
 
-#define XUTIL_DECLARE_ERROR_INFO(InfoType, ValueType) \
+#define DECLARE_ERROR_INFO(InfoType, ValueType) \
     typedef boost::error_info<struct InfoType##_, ValueType> InfoType;
 
 namespace xutil
 {
     typedef boost::errinfo_errno ErrorInfo_SystemErrorCode;
-    XUTIL_DECLARE_ERROR_INFO(ErrorInfo_Message, string);
-    XUTIL_DECLARE_ERROR_INFO(ErrorInfo_Backtrace, Backtrace);
+    DECLARE_ERROR_INFO(ErrorInfo_Message, string);
+    DECLARE_ERROR_INFO(ErrorInfo_Backtrace, Backtrace);
 
     class Exception : public std::exception, public boost::exception
     {

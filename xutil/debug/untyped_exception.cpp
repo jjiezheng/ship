@@ -21,7 +21,7 @@ namespace xutil
 
     void* UntypedException::FindException(const type_info& ti) const
     {
-        if (!exception_object)
+        if (!exception_object || !type_array)
         {
             return NULL;
         }

@@ -10,7 +10,7 @@
 
 namespace xutil
 {
-    bool xtrap_retrhrow_exceptions;
+    bool xtrap_retrhrow_exceptions = false;
 
     namespace
     {

@@ -3,11 +3,7 @@
 #include "environment.h"
 #include "builder.h"
 
-#include "xutil/debug/untyped_exception.h"
-#include "xutil/debug/symbol_server.h"
-
 using namespace ship;
-
 
 void bar()
 {
@@ -22,16 +18,16 @@ void foo()
 int main(int argc, char* argv[])
 {
     RegisterExceptionTraps();
+
+    logs::AddConsoleAppender(logs::app);
+    logs::AddConsoleAppender(logs::build);
+
     try
     {
         foo();
     }
-    catch (exception& e)
-    {
-        cerr << format_exception(e);
-    }
+    CATCH_EXCEPTION(logs::build, "Build error")
 
-    logs::AddConsoleAppender(logs::build);
 
     YAML::Node config = YAML::LoadFile("..\\doc\\setup.yaml");
     cout << config["product"]["name"].as<string>() << endl;
