@@ -61,6 +61,12 @@
     <ClInclude Include="debug\symbol_server.h">
       <Filter>debug</Filter>
     </ClInclude>
+    <ClInclude Include="compress\archive_reader.h">
+      <Filter>compress</Filter>
+    </ClInclude>
+    <ClInclude Include="compress\archive_writer.h">
+      <Filter>compress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -103,6 +109,15 @@
     <ClCompile Include="debug\symbol_server.cpp">
       <Filter>debug</Filter>
     </ClCompile>
+    <ClCompile Include="compress\archive_reader.cpp">
+      <Filter>compress</Filter>
+    </ClCompile>
+    <ClCompile Include="compress\archive_writer.cpp">
+      <Filter>compress</Filter>
+    </ClCompile>
+    <ClCompile Include="compress\miniz.c">
+      <Filter>compress</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="debug">
@@ -113,6 +128,9 @@
     </Filter>
     <Filter Include="system">
       <UniqueIdentifier>{280b3f05-f79f-4e27-b055-c2f019da1c25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compress">
+      <UniqueIdentifier>{85964a0b-37ce-49e6-a829-380b1bae8612}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

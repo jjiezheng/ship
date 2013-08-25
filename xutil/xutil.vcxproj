@@ -152,6 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="all.h" />
+    <ClInclude Include="compress\archive_reader.h" />
+    <ClInclude Include="compress\archive_writer.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="debug\backtrace.h" />
@@ -183,6 +185,14 @@
     <ClInclude Include="timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="compress\archive_reader.cpp" />
+    <ClCompile Include="compress\archive_writer.cpp" />
+    <ClCompile Include="compress\miniz.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release VS2010|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug VS2010|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="config.cpp" />
     <ClCompile Include="debug\backtrace.cpp" />
     <ClCompile Include="debug\backtrace_stack.cpp" />
