@@ -12,8 +12,6 @@ string GetApplicationPath()
 
 void Unpack(const string& dir)
 {
-    OFSTRUCT reopenBuff;
-
     int offset = GetPackageDataOffset();
     int size = GetPackageDataSize();
     int buf_size = min(size, 0x200000);

@@ -37,9 +37,6 @@
     <ClInclude Include="debug\exception_traps.h">
       <Filter>debug</Filter>
     </ClInclude>
-    <ClInclude Include="debug\stack_walker.h">
-      <Filter>debug</Filter>
-    </ClInclude>
     <ClInclude Include="system\process.h">
       <Filter>system</Filter>
     </ClInclude>
@@ -56,6 +53,12 @@
     </ClInclude>
     <ClInclude Include="logs.h" />
     <ClInclude Include="debug\untyped_exception.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="debug\backtrace_stack.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="debug\symbol_server.h">
       <Filter>debug</Filter>
     </ClInclude>
   </ItemGroup>
@@ -76,9 +79,6 @@
     <ClCompile Include="debug\exception_traps.cpp">
       <Filter>debug</Filter>
     </ClCompile>
-    <ClCompile Include="debug\stack_walker.cpp">
-      <Filter>debug</Filter>
-    </ClCompile>
     <ClCompile Include="debug\backtrace.cpp">
       <Filter>debug</Filter>
     </ClCompile>
@@ -95,6 +95,12 @@
     </ClCompile>
     <ClCompile Include="logs.cpp" />
     <ClCompile Include="debug\untyped_exception.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\backtrace_stack.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\symbol_server.cpp">
       <Filter>debug</Filter>
     </ClCompile>
   </ItemGroup>

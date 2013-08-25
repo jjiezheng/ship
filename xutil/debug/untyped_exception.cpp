@@ -3,14 +3,29 @@
 
 namespace xutil
 {
+    static const DWORD EXCEPTION_USER = 0xE06D7363U;
+
     UntypedException::UntypedException(const EXCEPTION_RECORD& er)
     {
-         exception_object = reinterpret_cast<void*>(er.ExceptionInformation[1]);
-         type_array = reinterpret_cast<_ThrowInfo*>(er.ExceptionInformation[2])->pCatchableTypeArray;
+         if (er.ExceptionCode == EXCEPTION_USER)
+         {
+             exception_object = reinterpret_cast<void*>(er.ExceptionInformation[1]);
+             type_array = reinterpret_cast<_ThrowInfo*>(er.ExceptionInformation[2])->pCatchableTypeArray;
+         }
+         else
+         {
+             exception_object = NULL;
+             type_array = NULL;
+         }
     }
 
     void* UntypedException::FindException(const type_info& ti) const
     {
+        if (!exception_object)
+        {
+            return NULL;
+        }
+
         for (int i = 0; i < type_array->nCatchableTypes; ++i) 
         {
             _CatchableType& type_i = *type_array->arrayOfCatchableTypes[i];

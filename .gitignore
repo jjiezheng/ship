@@ -4,5 +4,7 @@
 *.user
 *.sdf
 *.suo
+*.obj
+*.lst
 *.opensdf
 ipch

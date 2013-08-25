@@ -37,7 +37,9 @@ namespace xutil
 
         void ConfigureLoggers(const string& config_path = "logs.cfg");
         void ConfigureLoggers(const Config& config);
+
         void AddConsoleAppender(Logger& logger);
+        void AddFileAppender(Logger& logger, const string& path);
 
         void DisableLogging();
         void EnableLogging();

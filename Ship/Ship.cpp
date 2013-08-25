@@ -3,28 +3,15 @@
 #include "environment.h"
 #include "builder.h"
 
-#include "xutil/debug/stack_walker.h"
+#include "xutil/debug/untyped_exception.h"
+#include "xutil/debug/symbol_server.h"
 
 using namespace ship;
 
 
-void OutputProc(const char* text)
-{
-    cerr << text;
-    cerr.flush();
-}
-
-LONG CALLBACK VectoredHandler(PEXCEPTION_POINTERS ExceptionInfo)
-{
-    StackWalker walker;
-    walker.SetOutputProc(&OutputProc);
-    walker.ShowCallstack(::GetCurrentThread(), ExceptionInfo->ContextRecord);
-    return EXCEPTION_CONTINUE_SEARCH;
-}
-
 void bar()
 {
-    throw exception("test");
+    throw runtime_error("test");
 }
 
 void foo()
@@ -34,22 +21,19 @@ void foo()
 
 int main(int argc, char* argv[])
 {
-    //AddVectoredExceptionHandler(1, &VectoredHandler);
-
+    RegisterExceptionTraps();
     try
     {
         foo();
     }
     catch (exception& e)
     {
-        void* pe = &e;
-        typeid(*pe).name();
-        cout << e.what() << endl;
+        cerr << format_exception(e);
     }
 
     logs::AddConsoleAppender(logs::build);
 
-    YAML::Node config = YAML::LoadFile("C:\\Documents\\Other\\ship\\doc\\setup.yaml");
+    YAML::Node config = YAML::LoadFile("..\\doc\\setup.yaml");
     cout << config["product"]["name"].as<string>() << endl;
 
     auto vars = make_shared<VarTable>();

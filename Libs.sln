@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2010
+# Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yaml-cpp", "lib\yaml-cpp\yaml-cpp.vcxproj", "{789AE3F7-D320-420F-A2D7-7027AEF4C71E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cplusS", "lib\log4cplus\msvc10\log4cplusS.vcxproj", "{BEC0CD2F-60CD-40E2-A89B-AB10E902F1D5}"
@@ -92,32 +92,27 @@ Global
 		{1BFF00CE-45DF-4A48-A6D5-720C0F0B4140}.ReleaseWithoutAsm|Win32.ActiveCfg = Release|Win32
 		{1BFF00CE-45DF-4A48-A6D5-720C0F0B4140}.ReleaseWithoutAsm|Win32.Build.0 = Release|Win32
 		{1BFF00CE-45DF-4A48-A6D5-720C0F0B4140}.ReleaseWithoutAsm|x64.ActiveCfg = Release|Win32
-		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug VS2010|Itanium.ActiveCfg = Debug VS2010|Itanium
-		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug VS2010|Itanium.Build.0 = Debug VS2010|Itanium
+		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug VS2010|Itanium.ActiveCfg = Debug VS2010|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug VS2010|Win32.ActiveCfg = Debug VS2010|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug VS2010|Win32.Build.0 = Debug VS2010|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug VS2010|x64.ActiveCfg = Debug VS2010|x64
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug VS2010|x64.Build.0 = Debug VS2010|x64
-		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug|Itanium.ActiveCfg = Debug|Itanium
-		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug|Itanium.Build.0 = Debug|Itanium
+		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug|Itanium.ActiveCfg = Debug|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug|Win32.ActiveCfg = Debug|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug|Win32.Build.0 = Debug|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug|x64.ActiveCfg = Debug|x64
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Debug|x64.Build.0 = Debug|x64
-		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release VS2010|Itanium.ActiveCfg = Release VS2010|Itanium
-		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release VS2010|Itanium.Build.0 = Release VS2010|Itanium
+		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release VS2010|Itanium.ActiveCfg = Release VS2010|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release VS2010|Win32.ActiveCfg = Release VS2010|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release VS2010|Win32.Build.0 = Release VS2010|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release VS2010|x64.ActiveCfg = Release VS2010|x64
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release VS2010|x64.Build.0 = Release VS2010|x64
-		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release|Itanium.ActiveCfg = Release|Itanium
-		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release|Itanium.Build.0 = Release|Itanium
+		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release|Itanium.ActiveCfg = Release|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release|Win32.ActiveCfg = Release|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release|Win32.Build.0 = Release|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release|x64.ActiveCfg = Release|x64
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.Release|x64.Build.0 = Release|x64
-		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.ReleaseWithoutAsm|Itanium.ActiveCfg = ReleaseWithoutAsm|Itanium
-		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.ReleaseWithoutAsm|Itanium.Build.0 = ReleaseWithoutAsm|Itanium
+		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.ReleaseWithoutAsm|Itanium.ActiveCfg = ReleaseWithoutAsm|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.ReleaseWithoutAsm|Win32.ActiveCfg = ReleaseWithoutAsm|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.ReleaseWithoutAsm|Win32.Build.0 = ReleaseWithoutAsm|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.ReleaseWithoutAsm|x64.ActiveCfg = ReleaseWithoutAsm|x64

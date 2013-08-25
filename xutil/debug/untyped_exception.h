@@ -14,10 +14,9 @@ namespace xutil
         T* exception_cast() const
         {
             const type_info& ti = typeid(T);
-            return reinterpret_cast<T *>(FindException(ti));
+            return reinterpret_cast<T*>(FindException(ti));
         }
 
-    private:
         void* FindException(const type_info& ti) const;
     };
 }

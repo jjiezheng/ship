@@ -4,6 +4,7 @@
 #include <log4cplus/configurator.h>
 #include <log4cplus/hierarchy.h>
 #include <log4cplus/consoleappender.h>
+#include <log4cplus/fileappender.h>
 
 namespace xutil
 {
@@ -48,6 +49,12 @@ namespace xutil
         void AddConsoleAppender(Logger& logger)
         {
             log4cplus::SharedAppenderPtr appender(new log4cplus::ConsoleAppender());            
+            logger.addAppender(appender);
+        }
+
+        void AddFileAppender(Logger& logger, const string& path)
+        {
+            log4cplus::SharedAppenderPtr appender(new log4cplus::FileAppender(path));
             logger.addAppender(appender);
         }
 

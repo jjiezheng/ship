@@ -40,6 +40,11 @@ namespace xutil
     using boost::unordered_map;
 
     using boost::starts_with;
+
+    namespace io
+    {
+        using namespace boost::io;
+    }
 }
 
 #include "pointers.h"

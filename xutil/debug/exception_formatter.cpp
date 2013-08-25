@@ -5,11 +5,25 @@
 #include "../regex.h"
 #include "../strutil.h"
 
+#include "exception_traps.h"
+#include "symbol_server.h"
+
 namespace xutil
 {
     namespace 
     {
         Regex exp_throw("(.*): Throw in function (.*)");
+
+        string ExtractExceptionType(const type_info& type)
+        {
+            string type_name = type.name();
+            int space_pos = type_name .find_last_of(' ');
+            if (space_pos >= 0)
+            {
+                type_name = type_name.substr(space_pos + 1);
+            }
+            return type_name;
+        }
 
         Regex exp_function("([^ ]*)\\(");
         string ExtractFunctionName(const string& full_name)
@@ -73,20 +87,35 @@ namespace xutil
         }
     }
 
-    string format_exception(const std::exception& e)
+    string format_exception(const std::exception& e, bool extract_stack_trace /* = true */)
     {
-        string exception_type = typeid(e).name();
-        return "[" + exception_type + "] " + e.what();
+        string exception_type = ExtractExceptionType(typeid(e));
+
+        stringstream res;
+        res << "Exception of type " << exception_type << endl;
+        res << "  Message: " << e.what() << endl;
+
+        if (extract_stack_trace)
+        {
+            PEXCEPTION_POINTERS ex_info = GetExceptionStackTracePointers(e);
+            if (ex_info)
+            {
+                BacktraceStack stack = SymbolServer::instance()->DumpContext(ex_info->ContextRecord);
+                PrintStringVector(res, "Stack trace", stack);
+            }
+        }
+
+        return res.str();
     }
 
-    string format_exception(const boost::exception& e)
+    string format_exception(const boost::exception& e, bool extract_stack_trace /* = true */)
     {
         return format_boost_exception_details(diagnostic_information_what(e));
     }
 
     string format_exception(const Exception& e)
     {
-        return format_exception((const std::exception&)e);
+        return e.what();
     }
 
     string format_boost_exception_details(const string& boost_details)
