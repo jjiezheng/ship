@@ -500,6 +500,7 @@ typedef enum
 
 typedef struct
 {
+  mz_uint64 m_archive_offset;
   mz_uint64 m_archive_size;
   mz_uint64 m_central_directory_file_ofs;
   mz_uint m_total_files;
@@ -879,6 +880,59 @@ mz_uint32 tdefl_get_adler32(tdefl_compressor *d);
 // strategy may be either MZ_DEFAULT_STRATEGY, MZ_FILTERED, MZ_HUFFMAN_ONLY, MZ_RLE, or MZ_FIXED
 mz_uint tdefl_create_comp_flags_from_zip_params(int level, int window_bits, int strategy);
 #endif // #ifndef MINIZ_NO_ZLIB_APIS
+
+#ifdef MINIZ_NO_STDIO
+  #define MZ_FILE void *
+#else
+  #include <stdio.h>
+  #include <sys/stat.h>
+  #if defined(_MSC_VER) || defined(__MINGW64__)
+    #include <sys/utime.h>
+    #define MZ_FILE FILE
+    #define MZ_FOPEN fopen
+    #define MZ_FCLOSE fclose
+    #define MZ_FREAD fread
+    #define MZ_FWRITE fwrite
+    #define MZ_FTELL64 _ftelli64
+    #define MZ_FSEEK64 _fseeki64
+    #define MZ_FILE_STAT_STRUCT _stat
+    #define MZ_FILE_STAT _stat
+    #define MZ_FFLUSH fflush
+    #define MZ_FREOPEN freopen
+    #define MZ_DELETE_FILE remove
+  #elif defined(__MINGW32__)
+    #include <sys/utime.h>
+    #define MZ_FILE FILE
+    #define MZ_FOPEN fopen
+    #define MZ_FCLOSE fclose
+    #define MZ_FREAD fread
+    #define MZ_FWRITE fwrite
+    #define MZ_FTELL64 ftello64
+    #define MZ_FSEEK64 fseeko64
+    #define MZ_FILE_STAT_STRUCT _stat
+    #define MZ_FILE_STAT _stat
+    #define MZ_FFLUSH fflush
+    #define MZ_FREOPEN freopen
+    #define MZ_DELETE_FILE remove
+  #else
+    #include <utime.h>
+    #define MZ_FILE FILE
+    #define MZ_FOPEN fopen
+    #define MZ_FCLOSE fclose
+    #define MZ_FREAD fread
+    #define MZ_FWRITE fwrite
+    #define MZ_FTELL64 ftello
+    #define MZ_FSEEK64 fseeko
+    #define MZ_FILE_STAT_STRUCT stat
+    #define MZ_FILE_STAT stat
+    #define MZ_FFLUSH fflush
+    #define MZ_FREOPEN freopen
+    #define MZ_DELETE_FILE remove
+  #endif // #ifdef _MSC_VER
+
+  mz_bool mz_zip_reader_init_file_block(mz_zip_archive *pZip, MZ_FILE* pFile, mz_uint64 archive_offset, mz_uint64 archive_size, mz_uint32 flags);
+#endif // #ifdef MINIZ_NO_STDIO
+
 
 #ifdef __cplusplus
 }
@@ -2789,56 +2843,6 @@ void *tdefl_write_image_to_png_file_in_memory(const void *pImage, int w, int h, 
 
 #ifndef MINIZ_NO_ARCHIVE_APIS
 
-#ifdef MINIZ_NO_STDIO
-  #define MZ_FILE void *
-#else
-  #include <stdio.h>
-  #include <sys/stat.h>
-  #if defined(_MSC_VER) || defined(__MINGW64__)
-    #include <sys/utime.h>
-    #define MZ_FILE FILE
-    #define MZ_FOPEN fopen
-    #define MZ_FCLOSE fclose
-    #define MZ_FREAD fread
-    #define MZ_FWRITE fwrite
-    #define MZ_FTELL64 _ftelli64
-    #define MZ_FSEEK64 _fseeki64
-    #define MZ_FILE_STAT_STRUCT _stat
-    #define MZ_FILE_STAT _stat
-    #define MZ_FFLUSH fflush
-    #define MZ_FREOPEN freopen
-    #define MZ_DELETE_FILE remove
-  #elif defined(__MINGW32__)
-    #include <sys/utime.h>
-    #define MZ_FILE FILE
-    #define MZ_FOPEN fopen
-    #define MZ_FCLOSE fclose
-    #define MZ_FREAD fread
-    #define MZ_FWRITE fwrite
-    #define MZ_FTELL64 ftello64
-    #define MZ_FSEEK64 fseeko64
-    #define MZ_FILE_STAT_STRUCT _stat
-    #define MZ_FILE_STAT _stat
-    #define MZ_FFLUSH fflush
-    #define MZ_FREOPEN freopen
-    #define MZ_DELETE_FILE remove
-  #else
-    #include <utime.h>
-    #define MZ_FILE FILE
-    #define MZ_FOPEN fopen
-    #define MZ_FCLOSE fclose
-    #define MZ_FREAD fread
-    #define MZ_FWRITE fwrite
-    #define MZ_FTELL64 ftello
-    #define MZ_FSEEK64 fseeko
-    #define MZ_FILE_STAT_STRUCT stat
-    #define MZ_FILE_STAT stat
-    #define MZ_FFLUSH fflush
-    #define MZ_FREOPEN freopen
-    #define MZ_DELETE_FILE remove
-  #endif // #ifdef _MSC_VER
-#endif // #ifdef MINIZ_NO_STDIO
-
 #define MZ_TOLOWER(c) ((((c) >= 'A') && ((c) <= 'Z')) ? ((c) - 'A' + 'a') : (c))
 
 // Various ZIP archive enums. To completely avoid cross platform compiler alignment and platform endian issues, miniz.c doesn't use structs for any of this stuff.
@@ -2975,6 +2979,7 @@ static mz_bool mz_zip_reader_init_internal(mz_zip_archive *pZip, mz_uint32 flags
   if (!pZip->m_pRealloc) pZip->m_pRealloc = def_realloc_func;
 
   pZip->m_zip_mode = MZ_ZIP_MODE_READING;
+  pZip->m_archive_offset = 0;
   pZip->m_archive_size = 0;
   pZip->m_central_directory_file_ofs = 0;
   pZip->m_total_files = 0;
@@ -3185,7 +3190,7 @@ static size_t mz_zip_file_read_func(void *pOpaque, mz_uint64 file_ofs, void *pBu
 {
   mz_zip_archive *pZip = (mz_zip_archive *)pOpaque;
   mz_int64 cur_ofs = MZ_FTELL64(pZip->m_pState->m_pFile);
-  if (((mz_int64)file_ofs < 0) || (((cur_ofs != (mz_int64)file_ofs)) && (MZ_FSEEK64(pZip->m_pState->m_pFile, (mz_int64)file_ofs, SEEK_SET))))
+  if (((mz_int64)file_ofs < 0) || (((cur_ofs != (mz_int64)file_ofs)) && (MZ_FSEEK64(pZip->m_pState->m_pFile, (mz_int64)file_ofs + pZip->m_archive_offset, SEEK_SET))))
     return 0;
   return MZ_FREAD(pBuf, 1, n, pZip->m_pState->m_pFile);
 }
@@ -3215,6 +3220,28 @@ mz_bool mz_zip_reader_init_file(mz_zip_archive *pZip, const char *pFilename, mz_
   }
   return MZ_TRUE;
 }
+
+mz_bool mz_zip_reader_init_file_block(mz_zip_archive *pZip, MZ_FILE* pFile, mz_uint64 archive_offset, mz_uint64 archive_size, mz_uint32 flags)
+{
+  if (!mz_zip_reader_init_internal(pZip, flags))
+  {
+    return MZ_FALSE;
+  }
+
+  pZip->m_pRead = mz_zip_file_read_func;
+  pZip->m_pIO_opaque = pZip;
+  pZip->m_pState->m_pFile = pFile;
+  pZip->m_archive_offset = archive_offset;
+  pZip->m_archive_size = archive_size;
+  if (!mz_zip_reader_read_central_dir(pZip, flags))
+  {
+    mz_zip_reader_end(pZip);
+    return MZ_FALSE;
+  }
+  return MZ_TRUE;
+
+}
+
 #endif // #ifndef MINIZ_NO_STDIO
 
 mz_uint mz_zip_reader_get_num_files(mz_zip_archive *pZip)

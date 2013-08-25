@@ -12,5 +12,10 @@
 #include <stdio.h>
 
 #include <string>
+#include <exception>
 
-using std::string;
+using namespace std;
+
+#include <boost/noncopyable.hpp>
+using boost::noncopyable;
+

@@ -2,8 +2,8 @@
 
 #include "exception.h"
 
-#define XTHROW_NOT_IMPLEMENTED() XTHROW(xutil::NotImplementedException())
-#define XTHROW_NOT_SUPPORTED(msg) XTHROW(xutil::NotSupportedException(msg))
+#define THROW_NOT_IMPLEMENTED() THROW(xutil::NotImplementedException())
+#define THROW_NOT_SUPPORTED(msg) THROW(xutil::NotSupportedException(msg))
 
 namespace xutil
 {

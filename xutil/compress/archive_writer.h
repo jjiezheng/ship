@@ -5,9 +5,14 @@ namespace xutil
     class ArchiveWriter : noncopyable
     {
     public:
-        ArchiveWriter(ostream& stream);
+        ArchiveWriter(const string& path);
+        virtual ~ArchiveWriter();
+
+        void Close();
+        bool AddFile(const string& archive_name, const string& src_path);
 
     private:
-        ostream& stream_;
+        void* zip_obj_;
+        FILE* file_;
     };
 }
