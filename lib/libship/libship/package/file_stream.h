@@ -19,4 +19,6 @@ namespace ship
     private:
         string path_;
     };
+
+    typedef shared_ptr<FileStream> FileStreamPtr;
 }

@@ -8,8 +8,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\stage\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\lib\htmlayout\include;$(SolutionDir)\lib\log4cplus\include;$(SolutionDir)\lib\yaml-cpp\include;$(SolutionDir)\lib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\lib\htmlayout\include;$(SolutionDir)\lib\log4cplus\include;$(SolutionDir)\lib\yaml-cpp\include;$(SolutionDir)\lib\zlib;$(SolutionDir)\lib\xutil;$(SolutionDir)\lib\libship;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

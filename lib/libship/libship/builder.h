@@ -11,7 +11,7 @@ namespace ship
         Builder(const VarTablePtr& vars);
         PackagePtr Build(const YAML::Node& config);
     private:
-        void ImportData(const YAML::Node& node, const string& install_location = "");
+        void ImportData(Package& package, const YAML::Node& node, const string& install_location = "");
         VarTablePtr vars_;
     };
 }

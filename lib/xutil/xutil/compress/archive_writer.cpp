@@ -6,13 +6,28 @@
 
 namespace xutil
 {
+    ArchiveWriter::ArchiveWriter(FILE* file, size_t archive_offset)
+        : zip_obj_(NULL)
+    {
+        mz_zip_archive* zip = new mz_zip_archive();
+        memset(zip, 0, sizeof(*zip));
+
+        mz_bool rc =  mz_zip_writer_init_file_block(zip, file, archive_offset, 0);
+        if (!rc)
+        {
+            THROW_EXCEPTION("Failed to init archive writer");
+        }
+
+        zip_obj_ = zip;
+    }
+
     ArchiveWriter::ArchiveWriter(const string& path)
         : zip_obj_(NULL)
     {
         mz_zip_archive* zip = new mz_zip_archive();
         memset(zip, 0, sizeof(*zip));
 
-        mz_bool rc = mz_zip_writer_init_file(zip, path.c_str(), 0x10000);
+        mz_bool rc = mz_zip_writer_init_file(zip, path.c_str(), 0);
         if (!rc)
         {
             THROW_EXCEPTION("Failed to init archive writer");

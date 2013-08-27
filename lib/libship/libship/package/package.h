@@ -10,9 +10,8 @@ namespace ship
     public:
         ProductInfo product;
 
-    private:
         typedef vector<PackageItemPtr> PackageContent;
-        PackageContent content_;
+        PackageContent content;
     };
 
     typedef shared_ptr<Package> PackagePtr;

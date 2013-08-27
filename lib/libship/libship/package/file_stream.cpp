@@ -6,6 +6,7 @@
 namespace ship
 {
     FileStream::FileStream(const string& path)
+        : path_(path)
     {
     }
 

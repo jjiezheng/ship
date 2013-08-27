@@ -19,34 +19,30 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FC5C7AAF-71BE-4373-836E-C009E1C7C896}</ProjectGuid>
+    <ProjectGuid>{4014DA1F-F840-4AF0-85EC-1DD8CE48658B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>xutil</RootNamespace>
+    <RootNamespace>libship</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110_xp</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug VS2010|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v100</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release VS2010|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -55,45 +51,45 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\libraries.props" />
+    <Import Project="..\..\..\libraries.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug VS2010|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\libraries.props" />
+    <Import Project="..\..\..\libraries.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\libraries.props" />
+    <Import Project="..\..\..\libraries.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release VS2010|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\libraries.props" />
+    <Import Project="..\..\..\libraries.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>$(SolutionDir)\obj\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)\stage\$(Configuration)\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug VS2010|Win32'">
     <IntDir>$(SolutionDir)\obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)\stage\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IntDir>$(SolutionDir)\obj\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)\stage\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release VS2010|Win32'">
-    <IntDir>$(SolutionDir)\obj\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)\stage\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug VS2010|Win32'">
+    <OutDir>$(SolutionDir)\stage\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <AdditionalOptions>/Zm128 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -105,9 +101,9 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <AdditionalOptions>/Zm128 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -121,9 +117,9 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <AdditionalOptions>/Zm128 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,9 +135,9 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <AdditionalOptions>/Zm128 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,71 +147,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="all.h" />
-    <ClInclude Include="compress\archive_reader.h" />
-    <ClInclude Include="compress\archive_writer.h" />
-    <ClInclude Include="config.h" />
-    <ClInclude Include="debug.h" />
-    <ClInclude Include="debug\backtrace.h" />
-    <ClInclude Include="debug\backtrace_stack.h" />
-    <ClInclude Include="debug\symbol_server.h" />
-    <ClInclude Include="debug\untyped_exception.h" />
-    <ClInclude Include="debug\exception_formatter.h" />
-    <ClInclude Include="debug\exception_traps.h" />
-    <ClInclude Include="debug\trace.h" />
-    <ClInclude Include="exception.h" />
-    <ClInclude Include="factory.h" />
-    <ClInclude Include="generic_exceptions.h" />
+    <ClInclude Include="builder.h" />
+    <ClInclude Include="config_data.h" />
+    <ClInclude Include="environment.h" />
+    <ClInclude Include="file_bundle.h" />
     <ClInclude Include="logs.h" />
-    <ClInclude Include="pointers.h" />
-    <ClInclude Include="regex.h" />
+    <ClInclude Include="package\data_stream.h" />
+    <ClInclude Include="package\file_item.h" />
+    <ClInclude Include="package\file_stream.h" />
+    <ClInclude Include="package\package.h" />
+    <ClInclude Include="package\package_item.h" />
+    <ClInclude Include="package\product_info.h" />
+    <ClInclude Include="package_writer.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="strutil.h" />
-    <ClInclude Include="system.h" />
-    <ClInclude Include="system\info.h" />
-    <ClInclude Include="system\path.h" />
-    <ClInclude Include="system\process.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="threading.h" />
-    <ClInclude Include="threading\atomic.h" />
-    <ClInclude Include="threading\event.h" />
-    <ClInclude Include="threading\primitives.h" />
-    <ClInclude Include="threading\task.h" />
-    <ClInclude Include="threading\thread_pool.h" />
-    <ClInclude Include="timer.h" />
+    <ClInclude Include="var_table.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="compress\archive_reader.cpp" />
-    <ClCompile Include="compress\archive_writer.cpp" />
-    <ClCompile Include="compress\miniz.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release VS2010|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug VS2010|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="config.cpp" />
-    <ClCompile Include="debug\backtrace.cpp" />
-    <ClCompile Include="debug\backtrace_stack.cpp" />
-    <ClCompile Include="debug\exception_formatter.cpp" />
-    <ClCompile Include="debug\exception_traps.cpp" />
-    <ClCompile Include="debug\symbol_server.cpp" />
-    <ClCompile Include="debug\trace.cpp" />
-    <ClCompile Include="debug\untyped_exception.cpp" />
-    <ClCompile Include="exception.cpp" />
-    <ClCompile Include="generic_exceptions.cpp" />
+    <ClCompile Include="builder.cpp" />
+    <ClCompile Include="config_data.cpp" />
+    <ClCompile Include="environment.cpp" />
+    <ClCompile Include="file_bundle.cpp" />
     <ClCompile Include="logs.cpp" />
+    <ClCompile Include="package\data_stream.cpp" />
+    <ClCompile Include="package\file_item.cpp" />
+    <ClCompile Include="package\file_stream.cpp" />
+    <ClCompile Include="package\package.cpp" />
+    <ClCompile Include="package\package_item.cpp" />
+    <ClCompile Include="package\product_info.cpp" />
+    <ClCompile Include="package_writer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug VS2010|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release VS2010|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="strutil.cpp" />
-    <ClCompile Include="system\info.cpp" />
-    <ClCompile Include="system\path.cpp" />
-    <ClCompile Include="system\process.cpp" />
-    <ClCompile Include="threading\thread_pool.cpp" />
-    <ClCompile Include="timer.cpp" />
+    <ClCompile Include="var_table.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

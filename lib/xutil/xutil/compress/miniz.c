@@ -931,6 +931,7 @@ mz_uint tdefl_create_comp_flags_from_zip_params(int level, int window_bits, int 
   #endif // #ifdef _MSC_VER
 
   mz_bool mz_zip_reader_init_file_block(mz_zip_archive *pZip, MZ_FILE* pFile, mz_uint64 archive_offset, mz_uint64 archive_size, mz_uint32 flags);
+  mz_bool mz_zip_writer_init_file_block(mz_zip_archive *pZip, MZ_FILE* pFile, mz_uint64 archive_offset, mz_uint64 size_to_reserve_at_beginning);
 #endif // #ifdef MINIZ_NO_STDIO
 
 
@@ -2878,6 +2879,7 @@ struct mz_zip_internal_state_tag
   mz_zip_array m_central_dir_offsets;
   mz_zip_array m_sorted_central_dir_offsets;
   MZ_FILE *m_pFile;
+  mz_bool m_own_file;
   void *m_pMem;
   size_t m_mem_size;
   size_t m_mem_capacity;
@@ -3212,6 +3214,7 @@ mz_bool mz_zip_reader_init_file(mz_zip_archive *pZip, const char *pFilename, mz_
   pZip->m_pRead = mz_zip_file_read_func;
   pZip->m_pIO_opaque = pZip;
   pZip->m_pState->m_pFile = pFile;
+  pZip->m_pState->m_own_file = MZ_TRUE;
   pZip->m_archive_size = file_size;
   if (!mz_zip_reader_read_central_dir(pZip, flags))
   {
@@ -3231,6 +3234,7 @@ mz_bool mz_zip_reader_init_file_block(mz_zip_archive *pZip, MZ_FILE* pFile, mz_u
   pZip->m_pRead = mz_zip_file_read_func;
   pZip->m_pIO_opaque = pZip;
   pZip->m_pState->m_pFile = pFile;
+  pZip->m_pState->m_own_file = MZ_FALSE;
   pZip->m_archive_offset = archive_offset;
   pZip->m_archive_size = archive_size;
   if (!mz_zip_reader_read_central_dir(pZip, flags))
@@ -3818,7 +3822,10 @@ mz_bool mz_zip_reader_end(mz_zip_archive *pZip)
 #ifndef MINIZ_NO_STDIO
     if (pState->m_pFile)
     {
-      MZ_FCLOSE(pState->m_pFile);
+      if (pState->m_own_file)
+      {
+        MZ_FCLOSE(pState->m_pFile);
+      }
       pState->m_pFile = NULL;
     }
 #endif // #ifndef MINIZ_NO_STDIO
@@ -3866,6 +3873,7 @@ mz_bool mz_zip_writer_init(mz_zip_archive *pZip, mz_uint64 existing_size)
   if (!pZip->m_pRealloc) pZip->m_pRealloc = def_realloc_func;
 
   pZip->m_zip_mode = MZ_ZIP_MODE_WRITING;
+  pZip->m_archive_offset = 0;
   pZip->m_archive_size = existing_size;
   pZip->m_central_directory_file_ofs = 0;
   pZip->m_total_files = 0;
@@ -3926,6 +3934,8 @@ static size_t mz_zip_file_write_func(void *pOpaque, mz_uint64 file_ofs, const vo
 {
   mz_zip_archive *pZip = (mz_zip_archive *)pOpaque;
   mz_int64 cur_ofs = MZ_FTELL64(pZip->m_pState->m_pFile);
+
+  file_ofs += pZip->m_archive_offset;
   if (((mz_int64)file_ofs < 0) || (((cur_ofs != (mz_int64)file_ofs)) && (MZ_FSEEK64(pZip->m_pState->m_pFile, (mz_int64)file_ofs, SEEK_SET))))
     return 0;
   return MZ_FWRITE(pBuf, 1, n, pZip->m_pState->m_pFile);
@@ -3944,6 +3954,7 @@ mz_bool mz_zip_writer_init_file(mz_zip_archive *pZip, const char *pFilename, mz_
     return MZ_FALSE;
   }
   pZip->m_pState->m_pFile = pFile;
+  pZip->m_pState->m_own_file = MZ_TRUE;
   if (size_to_reserve_at_beginning)
   {
     mz_uint64 cur_ofs = 0; char buf[4096]; MZ_CLEAR_OBJ(buf);
@@ -3960,6 +3971,33 @@ mz_bool mz_zip_writer_init_file(mz_zip_archive *pZip, const char *pFilename, mz_
   }
   return MZ_TRUE;
 }
+
+mz_bool mz_zip_writer_init_file_block(mz_zip_archive *pZip, MZ_FILE* pFile, mz_uint64 archive_offset, mz_uint64 size_to_reserve_at_beginning)
+{
+  pZip->m_pWrite = mz_zip_file_write_func;
+  pZip->m_pIO_opaque = pZip;
+  if (!mz_zip_writer_init(pZip, size_to_reserve_at_beginning))
+    return MZ_FALSE;
+  pZip->m_pState->m_pFile = pFile;
+  pZip->m_pState->m_own_file = MZ_FALSE;
+  pZip->m_archive_offset = archive_offset;
+  if (size_to_reserve_at_beginning)
+  {
+    mz_uint64 cur_ofs = 0; char buf[4096]; MZ_CLEAR_OBJ(buf);
+    do
+    {
+      size_t n = (size_t)MZ_MIN(sizeof(buf), size_to_reserve_at_beginning);
+      if (pZip->m_pWrite(pZip->m_pIO_opaque, cur_ofs, buf, n) != n)
+      {
+        mz_zip_writer_end(pZip);
+        return MZ_FALSE;
+      }
+      cur_ofs += n; size_to_reserve_at_beginning -= n;
+    } while (size_to_reserve_at_beginning);
+  }
+  return MZ_TRUE;
+}
+
 #endif // #ifndef MINIZ_NO_STDIO
 
 mz_bool mz_zip_writer_init_from_reader(mz_zip_archive *pZip, const char *pFilename)
@@ -4668,7 +4706,10 @@ mz_bool mz_zip_writer_end(mz_zip_archive *pZip)
 #ifndef MINIZ_NO_STDIO
   if (pState->m_pFile)
   {
-    MZ_FCLOSE(pState->m_pFile);
+    if (pState->m_own_file)
+    {
+      MZ_FCLOSE(pState->m_pFile);
+    }
     pState->m_pFile = NULL;
   }
 #endif // #ifndef MINIZ_NO_STDIO

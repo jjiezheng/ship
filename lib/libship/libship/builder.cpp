@@ -16,11 +16,11 @@ namespace ship
         package->product.Add(config["product"]);
         
         auto data_node = config["data"];
-        ImportData(data_node);
+        ImportData(*package, data_node);
         return package;
     }
 
-    void Builder::ImportData(const YAML::Node& node, const string& install_location /* = "" */)
+    void Builder::ImportData(Package& package, const YAML::Node& node, const string& install_location /* = "" */)
     {
         for (auto i = node.begin(); i != node.end(); ++i)
         {
@@ -37,7 +37,7 @@ namespace ship
                 for (auto i = bundle.files.begin(); i != bundle.files.end(); ++i)
                 {
                     FileItemPtr file = *i;
-                    cout << "    " << file->name << endl;
+                    package.content.push_back(file);
                 }
             }
             else

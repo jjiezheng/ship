@@ -6,6 +6,7 @@ namespace xutil
     {
     public:
         ArchiveWriter(const string& path);
+        ArchiveWriter(FILE* file, size_t archive_offset);
         virtual ~ArchiveWriter();
 
         void Close();
@@ -13,6 +14,5 @@ namespace xutil
 
     private:
         void* zip_obj_;
-        FILE* file_;
     };
 }
